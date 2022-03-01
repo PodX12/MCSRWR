@@ -1,1 +1,153 @@
-!editcom !test $(eval var wrs = $(urlfetch json https://pastebin.com/raw/1JE1hTHS); `${wrs["RSG"]["1.16+"]}, ${wrs["SSG"]["1.16+"]}, ${wrs["AA"]}, ${wrs["FSG"]}`)
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>A Basic HTML5 Template</title>
+    <meta name="description" content="A simple HTML5 Template for new projects.">
+    <meta name="author" content="SitePoint">
+
+    <meta property="og:title" content="A Basic HTML5 Template">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sitepoint.com/a-basic-html5-template/">
+    <meta property="og:description" content="A simple HTML5 Template for new projects.">
+    <meta property="og:image" content="image.png">
+
+    <!-- <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml"> -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <style>
+        body {
+            text-align: left;
+        }
+
+        .content {
+            width: 400px;
+            margin: auto;
+        }
+
+        .txt-box {
+            width: 100%;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="app" class="content">
+        <h1>WR Command Generator</h1>
+        <h3>RSG</h3>
+        <ul>
+            <li>
+                <input type="checkbox" id="rsg116" v-model="rsg116" @change="updateCommand()" />
+                <label for="rsg116">1.16+</label>
+            </li>
+            <li>
+                <input type="checkbox" id="rsg113to115" v-model="rsg113to115" @change="updateCommand()" />
+                <label for="rsg113to115">1.13-1.15</label>
+            </li>
+            <li>
+                <input type="checkbox" id="rsgpre19" v-model="rsgpre19" @change="updateCommand()" />
+                <label for="rsgpre19">Pre1.9</label>
+            </li>
+        </ul>
+
+        <h3>SSG</h3>
+        <ul>
+            <li>
+                <input type="checkbox" id="ssg116" v-model="ssg116" @change="updateCommand()" />
+                <label for="ssg116">1.16+</label>
+            </li>
+            <li>
+                <input type="checkbox" id="ssg113to115" v-model="ssg113to115" @change="updateCommand()" />
+                <label for="ssg113to115">1.13-1.15</label>
+            </li>
+            <li>
+                <input type="checkbox" id="ssgpre19" v-model="ssgpre19" @change="updateCommand()" />
+                <label for="ssgpre19">Pre1.9</label>
+            </li>
+        </ul>
+
+        <h3>Misc</h3>
+        <ul>
+            <li>
+                <input type="checkbox" id="aa" v-model="aa" @change="updateCommand()" />
+                <label for="aa">AA</label>
+            </li>
+            <li>
+                <input type="checkbox" id="fsg" v-model="fsg" @change="updateCommand()" />
+                <label for="fsg">FSG</label>
+            </li>
+            <li>
+                <input type="checkbox" id="icarus" v-model="icarus" @change="updateCommand()" />
+                <label for="icarus">Icarus</label>
+            </li>
+        </ul>
+
+        <input type="text" class="txt-box" v-model="command" />
+    </div>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    rsg116: true,
+                    rsg113to115: false,
+                    rsgpre19: false,
+                    ssg116: true,
+                    ssg113to115: false,
+                    ssgpre19: false,
+                    aa: false,
+                    fsg: false,
+                    icarus: false,
+                    command: '!wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`${r["RSG"]["1.16+"]}, ${r["SSG"]["1.16+"]}, ${r["AA"]}, ${r["FSG"]}`)'
+                }
+            },
+            methods: {
+                updateCommand() {
+                    var newCommand = "!wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`";
+
+                    if (this.rsg116) {
+                        newCommand += '1.16 ${r["RSG"]["1.16+"]}, ';
+                    }
+                    if (this.rsg113to115) {
+                        newCommand += '1.9-1.15 ${r["RSG"]["1.9-1.15"]}, ';
+                    }
+                    if (this.rsgpre19) {
+                        newCommand += 'Pre1.9${r["RSG"]["pre1.9"]}, ';
+                    }
+                    if (this.ssg116) {
+                        newCommand += 'SSG 1.16 ${r["SSG"]["1.16+"]}, ';
+                    }
+                    if (this.ssg113to115) {
+                        newCommand += 'SSG 1.9-1.15 ${r["SSG"]["1.9-1.15"]}, ';
+                    }
+                    if (this.ssgpre19) {
+                        newCommand += 'SSG Pre1.9${r["SSG"]["pre1.9"]}, ';
+                    }
+                    if (this.aa) {
+                        newCommand += '${r["AA"], ';
+                    }
+                    if (this.fsg) {
+                        newCommand += '${r["FSG"], ';
+                    }
+                    if (this.icarus) {
+                        newCommand += '${r["Icarus"], ';
+                    }
+
+                    newCommand = newCommand.substring(0, newCommand.length - 2) + "`)";
+
+                    this.command = newCommand;
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
