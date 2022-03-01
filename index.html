@@ -31,7 +31,8 @@
         <div class="container">
             <h4>What is this?</h4>
             <p>
-                This will create a command that will update when I update the WR file so that your WR command stays up to date with what the community considered WRs are. If you have any suggestions let me know.
+                This will create a command that will update when I update the WR file so that your WR command stays up
+                to date with what the community considered WRs are. If you have any suggestions let me know.
                 <br />
                 <br />
                 NOTE: In Prefixes {v} represents version
@@ -41,95 +42,22 @@
             </p>
             <p></p>
 
-            <h4>RSG</h4>
-            <div class="form-group">
-                <label>Prefix</label>
-                <input type="text" class="form-control" class="txt-box" v-model="rsgPrefix" @keyup="updateCommand()" />
-            </div>
-            <br>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="rsg116" v-model="rsg116"
-                    @change="updateCommand()" />
-                <label class="form-check-label" for="rsg116">1.16+</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="rsg113to115" v-model="rsg113to115"
-                    @change="updateCommand()" />
-                <label class="form-check-label" for="rsg113to115">1.13-1.15</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="rsgpre19" v-model="rsgpre19"
-                    @change="updateCommand()" />
-                <label class="form-check-label" for="rsgpre19">Pre1.9</label>
-            </div>
-
-            <h4>SSG</h4>
-            <div class="form-group">
-                <label>Prefix</label>
-                <input type="text" class="form-control" class="txt-box" v-model="ssgPrefix" @keyup="updateCommand()" />
-            </div>
-            <br>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="ssg116" v-model="ssg116"
-                    @change="updateCommand()" />
-                <label class="form-check-label" for="ssg116">1.16+</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="ssg113to115" v-model="ssg113to115"
-                    @change="updateCommand()" />
-                <label class="form-check-label" for="ssg113to115">1.13-1.15</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="ssgpre19" v-model="ssgpre19"
-                    @change="updateCommand()" />
-                <label class="form-check-label" for="ssgpre19">Pre1.9</label>
-            </div>
-
-            <h4>AA</h4>
-            <div class="form-group">
-                <label>Prefix</label>
-                <input type="text" class="form-control" class="txt-box" v-model="aaPrefix" @keyup="updateCommand()" />
-            </div>
-            <br>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="aa" v-model="aa116" @change="updateCommand()" />
-                <label class="form-check-label" for="aa">1.16</label>
-            </div>
-
-            <h4>FSG</h4>
-            <div class="form-group">
-                <label>Prefix</label>
-                <input type="text" class="form-control" class="txt-box" v-model="fsgPrefix" @keyup="updateCommand()" />
-            </div>
-            <br>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="fsg" v-model="fsg116" @change="updateCommand()" />
-                <label class="form-check-label" for="fsg">1.16+</label>
-            </div>
-
-            <h4>Icarus</h4>
-            <div class="form-group">
-                <label>Prefix</label>
-                <input type="text" class="form-control" class="txt-box" v-model="icarusPrefix" @keyup="updateCommand()" />
-            </div>
-            <br>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="icarus" v-model="icarus116"
-                    @change="updateCommand()" />
-                <label class="form-check-label" for="icarus">1.16+</label>
-            </div>
-
-            <h4>CRSG</h4>
-            <div class="form-group">
-                <label>Prefix</label>
-                <input type="text" class="form-control" class="txt-box" v-model="crsgPrefix" @keyup="updateCommand()" />
-            </div>
-            <br>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="crsg" v-model="crsg"
-                    @change="updateCommand()" />
-                <label class="form-check-label" for="crsg">CRSG</label>
-            </div>
+            <template v-for="(cat, key) in wrs">
+                <h4>{{ key }}</h4>
+                <div class="form-group">
+                    <label>Prefix</label>
+                    <input type="text" class="form-control" class="txt-box" v-model="cat.prefix"
+                        @keyup="updateCommand()" />
+                </div>
+                <br>
+                <template v-for="(ver, name) in cat">
+                    <div class="form-check" v-if="name != 'prefix'">
+                        <input type="checkbox" class="form-check-input" v-bind:value="key + ';'+ name" v-model="checkedCats"
+                            @change="updateCommand()" />
+                        <label class="form-check-label">{{ name }}</label>
+                    </div>
+                </template>
+            </template>
 
             <h4>WR Separator (includes spacing)</h4>
             <div class="form-group">
@@ -137,183 +65,28 @@
             </div>
 
             <h4>Command Suffix (optional)</h4>
-            <p>This appears at the end off the command response, include any categories not above that you may want to include here.</p>
+            <p>This appears at the end off the command response, include any categories not above that you may want to
+                include here.</p>
             <div class="form-group">
                 <input type="text" class="form-control" class="txt-box" v-model="suffix" @change="updateCommand()" />
             </div>
 
-            <h4>The Command</h4>
+            <h4>Command Name</h4>
             <div class="form-group">
-                <input type="text" class="form-control" class="txt-box" v-model="command" />
+                <input type="text" class="form-control" class="txt-box" v-model="commandName" @change="updateCommand()"/>
             </div>
 
-            <h4>Preview</h4>
+            <h4>Command (copy this)</h4>
+            <div class="form-group">
+                <input type="text" class="form-control" class="txt-box" v-model="command" readonly/>
+            </div>
+
+            <h4>Response Preview</h4>
             <p>{{ preview }}</p>
         </div>
-
-        <script src="https://unpkg.com/vue@3"></script>
     </div>
-    <script>
-        Vue.createApp({
-            data() {
-                return {
-                    rsgPrefix: "RSG {v}",
-                    rsg116: true,
-                    rsg113to115: false,
-                    rsgpre19: false,
-
-                    ssgPrefix: "SSG {v}",
-                    ssg116: true,
-                    ssg113to115: false,
-                    ssgpre19: false,
-
-                    aaPrefix: "AA",
-                    aa116: false,
-
-                    fsgPrefix: "FSG",
-                    fsg116: false,
-
-                    icarusPrefix: "Icarus",
-                    icarus116: false,
-
-                    crsgPrefix: "CRSG",
-                    crsg: false,
-
-                    separator: " | ",
-                    suffix: "",
-
-                    command: '',
-                    preview: '',
-                    wrs: {}
-                }
-            },
-            methods: {
-                updateCommand() {
-                    var newCommand = "!wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`";
-
-                    if (this.rsg116) {
-                        var pf = this.rsgPrefix.replace("{v}", "1.16+");
-                        newCommand += `${pf} \${r["RSG"]["1.16+"]} ${this.separator}`;
-                    }
-                    if (this.rsg113to115) {
-                        var pf = this.rsgPrefix.replace("{v}", "1.9-1.15");
-                        newCommand += `${pf} \${r["RSG"]["1.9-1.15"]} ${this.separator}`;
-                    }
-                    if (this.rsgpre19) {
-                        var pf = this.rsgPrefix.replace("{v}", "Pre1.9");
-                        newCommand += `${pf} \${r["RSG"]["Pre1.9"]} ${this.separator}`;
-                    }
-
-                    if (this.ssg116) {
-                        var pf = this.ssgPrefix.replace("{v}", "1.16+");
-                        newCommand += `${pf} \${r["SSG"]["1.16+"]} ${this.separator}`;
-                    }
-                    if (this.ssg113to115) {
-                        var pf = this.ssgPrefix.replace("{v}", "1.9-1.15");
-                        newCommand += `${pf} \${r["SSG"]["1.9-1.15"]} ${this.separator}`;
-                    }
-                    if (this.ssgpre19) {
-                        var pf = this.ssgPrefix.replace("{v}", "Pre1.9");
-                        newCommand += `${pf} \${r["SSG"]["Pre1.9"]} ${this.separator}`;
-                    }
-                    if (this.aa116) {
-                        var pf = this.aaPrefix.replace("{v}", "1.16");
-                        newCommand += `${pf} \${r["AA"]["1.16"]} ${this.separator}`;
-                    }
-
-                    if (this.fsg116) {
-                        var pf = this.fsgPrefix.replace("{v}", "1.16");
-                        newCommand += `${pf} \${r["FSG"]["1.16+"]} ${this.separator}`;
-                    }
-
-                    if (this.icarus116) {
-                        var pf = this.icarusPrefix.replace("{v}", "1.16");
-                        newCommand += `${pf} \${r["Icarus"]["1.16+"]} ${this.separator}`;
-                    }
-
-                    if (this.crsgPrefix) {
-                        var pf = this.crsgPrefix.replace("{v}", "1.16");
-                        newCommand += `${pf} \${r["CRSG"]} ${this.separator}`;
-                    }
-
-                    this.command = `${newCommand.substring(0, newCommand.length - this.separator.length)} ${this.suffix}\`)`;
-                    this.buildPreview();
-                },
-                getWrs() {
-                    var self = this;
-                    var xmlhttp = new XMLHttpRequest();
-
-                    xmlhttp.onreadystatechange = function () {
-                        if (this.readyState == 4 && this.status == 200) {
-                            self.wrs = JSON.parse(this.responseText);
-                            self.buildPreview();
-                        }
-                    };
-                    xmlhttp.open("GET", "https://podx12.github.io/MCSRWR/data.json", true);
-                    xmlhttp.send();
-                },
-                buildPreview() {
-                    if (!this.wrs["RSG"])
-                        return;
-                    var newPreview = "";
-                    var r = this.wrs;
-
-
-                    if (this.rsg116) {
-                        var pf = this.rsgPrefix.replace("{v}", "1.16+");
-                        newPreview += `${pf} ${r["RSG"]["1.16+"]} ${this.separator}`;
-                    }
-                    if (this.rsg113to115) {
-                        var pf = this.rsgPrefix.replace("{v}", "1.9-1.15");
-                        newPreview += `${pf} ${r["RSG"]["1.9-1.15"]} ${this.separator}`;
-                    }
-                    if (this.rsgpre19) {
-                        var pf = this.rsgPrefix.replace("{v}", "Pre1.9");
-                        newPreview += `${pf} ${r["RSG"]["Pre1.9"]} ${this.separator}`;
-                    }
-
-                    if (this.ssg116) {
-                        var pf = this.ssgPrefix.replace("{v}", "1.16+");
-                        newPreview += `${pf} ${r["SSG"]["1.16+"]} ${this.separator}`;
-                    }
-                    if (this.ssg113to115) {
-                        var pf = this.ssgPrefix.replace("{v}", "1.9-1.15");
-                        newPreview += `${pf} ${r["SSG"]["1.9-1.15"]} ${this.separator}`;
-                    }
-                    if (this.ssgpre19) {
-                        var pf = this.ssgPrefix.replace("{v}", "Pre1.9");
-                        newPreview += `${pf} ${r["SSG"]["Pre1.9"]} ${this.separator}`;
-                    }
-
-                    if (this.aa116) {
-                        var pf = this.aaPrefix.replace("{v}", "AA");
-                        newPreview += `${pf} ${r["AA"]["1.16"]} ${this.separator}`;
-                    }
-
-                    if (this.fsg116) {
-                        var pf = this.fsgPrefix.replace("{v}", "FSG");
-                        newPreview += `${pf} ${r["FSG"]["1.16+"]} ${this.separator}`;
-                    }
-
-                    if (this.icarus116) {
-                        var pf = this.icarusPrefix.replace("{v}", "Icarus");
-                        newPreview += `${pf} ${r["Icarus"]["1.16+"]} ${this.separator}`;
-                    }
-
-                    if (this.crsg) {
-                        var pf = this.crsgPrefix.replace("{v}", "1.16");
-                        newPreview += `${pf} ${r["CRSG"]} ${this.separator}`;
-                    }
-
-                    this.preview = `${newPreview.substring(0, newPreview.length - this.separator.length)} ${this.suffix}`;
-                }
-            },
-            mounted() {
-                this.updateCommand();
-                this.getWrs();
-            }
-        }).mount('#app')
-    </script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
