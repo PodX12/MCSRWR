@@ -92,9 +92,6 @@
 
         <input type="text" class="txt-box" v-model="command" />
     </div>
-
-    !wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`1.16 ${r["RSG"]["1.16+"]}, 1.9-1.15 ${r["RSG"]["1.9-1.15"]}, Pre1.9${r["RSG"]["pre1.9"]}, SSG 1.16 ${r["SSG"]["1.16+"]}, SSG 1.9-1.15 ${r["SSG"]["1.9-1.15"]}, SSG Pre1.9${r["SSG"]["pre1.9"]}, ${r["AA"], ${r["FSG"], ${r["Icarus"]`)
-
     <script>
         Vue.createApp({
             data() {
@@ -108,7 +105,7 @@
                     aa: false,
                     fsg: false,
                     icarus: false,
-                    command: '!wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`${r["RSG"]["1.16+"]}, ${r["SSG"]["1.16+"]}, ${r["AA"]}, ${r["FSG"]}`)'
+                    command: '!wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`1.16 ${r["RSG"]["1.16+"]}, SSG 1.16 ${r["SSG"]["1.16+"]}`)'
                 }
             },
             methods: {
