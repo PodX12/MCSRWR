@@ -92,8 +92,8 @@
             </div>
             <br>
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="aa" v-model="aa" @change="updateCommand()" />
-                <label class="form-check-label" for="aa">AA</label>
+                <input type="checkbox" class="form-check-input" id="aa" v-model="aa116" @change="updateCommand()" />
+                <label class="form-check-label" for="aa">1.16</label>
             </div>
 
             <h4>FSG</h4>
@@ -103,8 +103,8 @@
             </div>
             <br>
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="fsg" v-model="fsg" @change="updateCommand()" />
-                <label class="form-check-label" for="fsg">FSG</label>
+                <input type="checkbox" class="form-check-input" id="fsg" v-model="fsg116" @change="updateCommand()" />
+                <label class="form-check-label" for="fsg">1.16+</label>
             </div>
 
             <h4>Icarus</h4>
@@ -114,9 +114,21 @@
             </div>
             <br>
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="icarus" v-model="icarus"
+                <input type="checkbox" class="form-check-input" id="icarus" v-model="icarus116"
                     @change="updateCommand()" />
-                <label class="form-check-label" for="icarus">Icarus</label>
+                <label class="form-check-label" for="icarus">1.16+</label>
+            </div>
+
+            <h4>CRSG</h4>
+            <div class="form-group">
+                <label>Prefix</label>
+                <input type="text" class="form-control" class="txt-box" v-model="crsgPrefix" @keyup="updateCommand()" />
+            </div>
+            <br>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="crsg" v-model="crsg"
+                    @change="updateCommand()" />
+                <label class="form-check-label" for="crsg">CRSG</label>
             </div>
 
             <h4>WR Separator (includes spacing)</h4>
@@ -156,13 +168,16 @@
                     ssgpre19: false,
 
                     aaPrefix: "AA",
-                    aa: false,
+                    aa116: false,
 
                     fsgPrefix: "FSG",
-                    fsg: false,
+                    fsg116: false,
 
                     icarusPrefix: "Icarus",
-                    icarus: false,
+                    icarus116: false,
+
+                    crsgPrefix: "CRSG",
+                    crsg: false,
 
                     separator: " | ",
                     suffix: "",
@@ -201,20 +216,24 @@
                         var pf = this.ssgPrefix.replace("{v}", "Pre1.9");
                         newCommand += `${pf} \${r["SSG"]["Pre1.9"]} ${this.separator}`;
                     }
-
-                    if (this.aa) {
+                    if (this.aa116) {
                         var pf = this.aaPrefix.replace("{v}", "1.16");
-                        newCommand += `${pf} \${r["AA"]} ${this.separator}`;
+                        newCommand += `${pf} \${r["AA"]["1.16"]} ${this.separator}`;
                     }
 
-                    if (this.fsg) {
+                    if (this.fsg116) {
                         var pf = this.fsgPrefix.replace("{v}", "1.16");
-                        newCommand += `${pf} \${r["FSG"]} ${this.separator}`;
+                        newCommand += `${pf} \${r["FSG"]["1.16+"]} ${this.separator}`;
                     }
 
-                    if (this.icarus) {
+                    if (this.icarus116) {
                         var pf = this.icarusPrefix.replace("{v}", "1.16");
-                        newCommand += `${pf} \${r["Icarus"]} ${this.separator}`;
+                        newCommand += `${pf} \${r["Icarus"]["1.16+"]} ${this.separator}`;
+                    }
+
+                    if (this.crsgPrefix) {
+                        var pf = this.crsgPrefix.replace("{v}", "1.16");
+                        newCommand += `${pf} \${r["CRSG"]} ${this.separator}`;
                     }
 
                     this.command = `${newCommand.substring(0, newCommand.length - this.separator.length)} ${this.suffix}\`)`;
@@ -266,19 +285,24 @@
                         newPreview += `${pf} ${r["SSG"]["Pre1.9"]} ${this.separator}`;
                     }
 
-                    if (this.aa) {
+                    if (this.aa116) {
                         var pf = this.aaPrefix.replace("{v}", "AA");
-                        newPreview += `${pf} ${r["AA"]} ${this.separator}`;
+                        newPreview += `${pf} ${r["AA"]["1.16"]} ${this.separator}`;
                     }
 
-                    if (this.fsg) {
+                    if (this.fsg116) {
                         var pf = this.fsgPrefix.replace("{v}", "FSG");
-                        newPreview += `${pf} ${r["FSG"]} ${this.separator}`;
+                        newPreview += `${pf} ${r["FSG"]["1.16+"]} ${this.separator}`;
                     }
 
-                    if (this.icarus) {
+                    if (this.icarus116) {
                         var pf = this.icarusPrefix.replace("{v}", "Icarus");
-                        newPreview += `${pf} ${r["Icarus"]} ${this.separator}`;
+                        newPreview += `${pf} ${r["Icarus"]["1.16+"]} ${this.separator}`;
+                    }
+
+                    if (this.crsg) {
+                        var pf = this.crsgPrefix.replace("{v}", "1.16");
+                        newPreview += `${pf} ${r["CRSG"]} ${this.separator}`;
                     }
 
                     this.preview = `${newPreview.substring(0, newPreview.length - this.separator.length)} ${this.suffix}`;

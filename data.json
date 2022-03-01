@@ -9,7 +9,14 @@
 		"1.9-1.15": "2:51 by Spropl",
 		"Pre1.9": "19:45 by Galacticafro"
 	},
-	"AA": "3:32 by Feinberg",
-	"FSG": "4:46 by Dav1E",
-	"Icarus": "6:54 by Algorythm"
+	"AA": {
+		"1.16": "3:32 by Feinberg"
+	},
+	"FSG": {
+		"1.16+": "4:46 by Dav1E"
+	},
+	"Icarus": {
+		"1.16+": "6:54 by Algorythm"
+	},
+	"CRSG": "50:58 by whatevermarco"
 }
