@@ -134,13 +134,13 @@
                         newCommand += 'SSG Pre1.9${r["SSG"]["Pre1.9"]}, ';
                     }
                     if (this.aa) {
-                        newCommand += '${r["AA"]}, ';
+                        newCommand += 'AA ${r["AA"]}, ';
                     }
                     if (this.fsg) {
-                        newCommand += '${r["FSG"]}, ';
+                        newCommand += 'FSG ${r["FSG"]}, ';
                     }
                     if (this.icarus) {
-                        newCommand += '${r["Icarus"]}, ';
+                        newCommand += 'Icarus ${r["Icarus"]}, ';
                     }
 
                     newCommand = newCommand.substring(0, newCommand.length - 2) + "`)";
