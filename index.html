@@ -124,6 +124,12 @@
                 <input type="text" class="form-control" class="txt-box" v-model="separator" @change="updateCommand()" />
             </div>
 
+            <h4>Command Suffix (optional)</h4>
+            <p>This appears at the end off the command response, include any categories not above that you may want to include here.</p>
+            <div class="form-group">
+                <input type="text" class="form-control" class="txt-box" v-model="suffix" @change="updateCommand()" />
+            </div>
+
             <h4>The Command</h4>
             <div class="form-group">
                 <input type="text" class="form-control" class="txt-box" v-model="command" />
@@ -159,6 +165,8 @@
                     icarus: false,
 
                     separator: " | ",
+                    suffix: "",
+
                     command: '',
                     preview: '',
                     wrs: {}
@@ -209,9 +217,7 @@
                         newCommand += `${pf} \${r["Icarus"]} ${this.separator}`;
                     }
 
-                    newCommand = newCommand.substring(0, newCommand.length - this.separator.length) + "`)";
-
-                    this.command = newCommand;
+                    this.command = `${newCommand.substring(0, newCommand.length - this.separator.length)} ${this.suffix}\`)`;
                     this.buildPreview();
                 },
                 getWrs() {
@@ -275,9 +281,7 @@
                         newPreview += `${pf} ${r["Icarus"]} ${this.separator}`;
                     }
 
-                    newPreview = newPreview.substring(0, newPreview.length - this.separator.length);
-
-                    this.preview = newPreview;
+                    this.preview = `${newPreview.substring(0, newPreview.length - this.separator.length)} ${this.suffix}`;
                 }
             },
             mounted() {
