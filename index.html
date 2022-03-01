@@ -91,10 +91,12 @@
         </ul>
 
         <h3>Separator (includes spacing)</h3>
-        <input type="text" class="txt-box" v-model="separator" />
+        <input type="text" class="txt-box" v-model="separator" @change="updateCommand()" />
 
         <h3>The Command</h3>
         <input type="text" class="txt-box" v-model="command" />
+        <h3>Preview</h3>
+        <p>{{ preview }}</p>
     </div>
     <script>
         Vue.createApp({
@@ -110,7 +112,9 @@
                     fsg: false,
                     icarus: false,
                     separator: " | ",
-                    command: ''
+                    command: '',
+                    preview: '',
+                    wrs: {}
                 }
             },
             methods: {
@@ -145,13 +149,66 @@
                         newCommand += 'Icarus ${r["Icarus"]}' + this.separator;
                     }
 
-                    newCommand = newCommand.substring(0, newCommand.length - 2) + "`)";
+                    newCommand = newCommand.substring(0, newCommand.length - this.separator.length) + "`)";
 
                     this.command = newCommand;
+                    this.buildPreview();
+                },
+                getWrs() {
+                    var self = this;
+                    var xmlhttp = new XMLHttpRequest();
+
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            self.wrs = JSON.parse(this.responseText);
+                            self.buildPreview();
+                        }
+                    };
+                    xmlhttp.open("GET", "https://podx12.github.io/MCSRWR/data.json", true);
+                    xmlhttp.send();
+                },
+                buildPreview(){
+                    if(!this.wrs["RSG"])
+                        return;
+                    var newPreview = "";
+                    var r = this.wrs;
+
+                    if (this.rsg116) {
+                        newPreview += `1.16 ${r["RSG"]["1.16+"]}` + this.separator;
+                    }
+                    if (this.rsg113to115) {
+                        newPreview += `1.9-1.15 ${r["RSG"]["1.9-1.15"]}` + this.separator;
+                    }
+                    if (this.rsgpre19) {
+                        newPreview += `Pre1.9 ${r["RSG"]["Pre1.9"]}` + this.separator;
+                    }
+                    if (this.ssg116) {
+                        newPreview += `SSG 1.16 ${r["SSG"]["1.16+"]}` + this.separator;
+                    }
+                    if (this.ssg113to115) {
+                        newPreview += `SSG 1.9-1.15 ${r["SSG"]["1.9-1.15"]}` + this.separator;
+                    }
+                    if (this.ssgpre19) {
+                        newPreview += `SSG Pre1.9${r["SSG"]["Pre1.9"]}` + this.separator;
+                    }
+                    if (this.aa) {
+                        newPreview += `AA ${r["AA"]}` + this.separator;
+                    }
+                    if (this.fsg) {
+                        newPreview += `FSG ${r["FSG"]}` + this.separator;
+                    }
+                    if (this.icarus) {
+                        newPreview += `Icarus ${r["Icarus"]}` + this.separator;
+                    }
+
+                    newPreview = newPreview.substring(0, newPreview.length - this.separator.length);
+
+                    this.preview = newPreview;
                 }
             },
-            mounted (){
-                this.updateCommand()
+            mounted() {
+                this.updateCommand();
+                this.getWrs();
             }
         }).mount('#app')
     </script>
