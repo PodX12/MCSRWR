@@ -93,6 +93,8 @@
         <input type="text" class="txt-box" v-model="command" />
     </div>
 
+    !wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`1.16 ${r["RSG"]["1.16+"]}, 1.9-1.15 ${r["RSG"]["1.9-1.15"]}, Pre1.9${r["RSG"]["pre1.9"]}, SSG 1.16 ${r["SSG"]["1.16+"]}, SSG 1.9-1.15 ${r["SSG"]["1.9-1.15"]}, SSG Pre1.9${r["SSG"]["pre1.9"]}, ${r["AA"], ${r["FSG"], ${r["Icarus"]`)
+
     <script>
         Vue.createApp({
             data() {
@@ -120,7 +122,7 @@
                         newCommand += '1.9-1.15 ${r["RSG"]["1.9-1.15"]}, ';
                     }
                     if (this.rsgpre19) {
-                        newCommand += 'Pre1.9${r["RSG"]["pre1.9"]}, ';
+                        newCommand += 'Pre1.9${r["RSG"]["Pre1.9"]}, ';
                     }
                     if (this.ssg116) {
                         newCommand += 'SSG 1.16 ${r["SSG"]["1.16+"]}, ';
@@ -129,16 +131,16 @@
                         newCommand += 'SSG 1.9-1.15 ${r["SSG"]["1.9-1.15"]}, ';
                     }
                     if (this.ssgpre19) {
-                        newCommand += 'SSG Pre1.9${r["SSG"]["pre1.9"]}, ';
+                        newCommand += 'SSG Pre1.9${r["SSG"]["Pre1.9"]}, ';
                     }
                     if (this.aa) {
-                        newCommand += '${r["AA"], ';
+                        newCommand += '${r["AA"]}, ';
                     }
                     if (this.fsg) {
-                        newCommand += '${r["FSG"], ';
+                        newCommand += '${r["FSG"]}, ';
                     }
                     if (this.icarus) {
-                        newCommand += '${r["Icarus"], ';
+                        newCommand += '${r["Icarus"]}, ';
                     }
 
                     newCommand = newCommand.substring(0, newCommand.length - 2) + "`)";
