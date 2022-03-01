@@ -90,6 +90,10 @@
             </li>
         </ul>
 
+        <h3>Separator</h3>
+        <input type="text" class="txt-box" v-model="separator" />
+
+        <h3>The Command</h3>
         <input type="text" class="txt-box" v-model="command" />
     </div>
     <script>
@@ -105,6 +109,7 @@
                     aa: false,
                     fsg: false,
                     icarus: false,
+                    separator: " | ",
                     command: '!wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`1.16 ${r["RSG"]["1.16+"]}, SSG 1.16 ${r["SSG"]["1.16+"]}`)'
                 }
             },
@@ -113,31 +118,31 @@
                     var newCommand = "!wr $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);`";
 
                     if (this.rsg116) {
-                        newCommand += '1.16 ${r["RSG"]["1.16+"]}, ';
+                        newCommand += '1.16 ${r["RSG"]["1.16+"]}' + separator;
                     }
                     if (this.rsg113to115) {
-                        newCommand += '1.9-1.15 ${r["RSG"]["1.9-1.15"]}, ';
+                        newCommand += '1.9-1.15 ${r["RSG"]["1.9-1.15"]}' + separator;
                     }
                     if (this.rsgpre19) {
-                        newCommand += 'Pre1.9${r["RSG"]["Pre1.9"]}, ';
+                        newCommand += 'Pre1.9 ${r["RSG"]["Pre1.9"]}' + separator;
                     }
                     if (this.ssg116) {
-                        newCommand += 'SSG 1.16 ${r["SSG"]["1.16+"]}, ';
+                        newCommand += 'SSG 1.16 ${r["SSG"]["1.16+"]}' + separator;
                     }
                     if (this.ssg113to115) {
-                        newCommand += 'SSG 1.9-1.15 ${r["SSG"]["1.9-1.15"]}, ';
+                        newCommand += 'SSG 1.9-1.15 ${r["SSG"]["1.9-1.15"]}' + separator;
                     }
                     if (this.ssgpre19) {
-                        newCommand += 'SSG Pre1.9${r["SSG"]["Pre1.9"]}, ';
+                        newCommand += 'SSG Pre1.9${r["SSG"]["Pre1.9"]}' + separator;
                     }
                     if (this.aa) {
-                        newCommand += 'AA ${r["AA"]}, ';
+                        newCommand += 'AA ${r["AA"]}' + separator;
                     }
                     if (this.fsg) {
-                        newCommand += 'FSG ${r["FSG"]}, ';
+                        newCommand += 'FSG ${r["FSG"]}' + separator;
                     }
                     if (this.icarus) {
-                        newCommand += 'Icarus ${r["Icarus"]}, ';
+                        newCommand += 'Icarus ${r["Icarus"]}' + separator;
                     }
 
                     newCommand = newCommand.substring(0, newCommand.length - 2) + "`)";
