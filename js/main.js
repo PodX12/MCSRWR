@@ -5,6 +5,7 @@ Vue.createApp({
             separator: " | ",
             suffix: "",
             command: '',
+            commandFossa: '',
             preview: '',
             wrs: {},
             commandName: '!wr'
@@ -35,8 +36,7 @@ Vue.createApp({
         },
         updateCommand() {
             var self = this;
-            var newCommand = `${self.commandName} $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);\``;
-            console.log(this.checkedCats);
+            var newCommand = ``;
             self.checkedCats.forEach(res => {
                 var splitCats = res.split(";");
                 var category = splitCats[0];
@@ -44,10 +44,11 @@ Vue.createApp({
                 var categoryObj = self.wrs[category];
 
                 var pf = categoryObj.prefix.replace("{v}", version);
-                newCommand += `${pf} \${r["${category}"]["${version}"]} ${this.separator}`;
+                newCommand += `${pf} \${r['${category}']['${version}']} ${this.separator}`;
             });
 
-            this.command = `${newCommand.substring(0, newCommand.length - this.separator.length)} ${this.suffix}\`)`;
+            this.command = `${self.commandName} $(eval var r=$(urlfetch json https://podx12.github.io/MCSRWR/data.json);\` ${newCommand.substring(0, newCommand.length - this.separator.length)} ${this.suffix}\`)`;
+            this.commandFossa = `${self.commandName} $(eval r=$(customapi https://podx12.github.io/MCSRWR/data.json);\` ${newCommand.substring(0, newCommand.length - this.separator.length)} ${this.suffix}\`)`;
             this.buildPreview();
         },
         buildPreview() {
