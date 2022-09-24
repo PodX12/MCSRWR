@@ -1,12 +1,16 @@
 {
 	"RSG": {
 		"1.16+": "8:36 by sagi_enderman",
-		"1.9-1.15": "14:37 by Ontricus",
+		"1.9-1.15": "14:37 by Ontricus",//OLD POD REMOVE PAST 2022-10-24 
+		"1.13-1.15": "14:37 by Ontricus",
+		"1.9-1.12": "28:26 by k4yfour",
 		"Pre1.9": "17:13 by nieuh"
 	},
 	"SSG": {
 		"1.16+": "1:49.435 by MagneticMaybe",
-		"1.9-1.15": "2:06.311 by MinecrAvenger",
+		"1.9-1.15": "2:06.311 by MinecrAvenger",//OLD POD REMOVE PAST 2022-10-24 
+		"1.13-1.15": "2:06.311 by MinecrAvenger",
+		"1.9-1.12": "7:17.933 by imhunny",
 		"Pre1.9": "2:41.4 by SeverusSnapeA113"
 	},
 	"AA": {
